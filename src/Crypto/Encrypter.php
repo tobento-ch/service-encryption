@@ -28,11 +28,23 @@ final class Encrypter implements EncrypterInterface
     /**
      * Create a new Encrypter.
      *
+     * @param string $name
      * @param Key $key
      */
     public function __construct(
+        protected string $name,
         #[\SensitiveParameter] protected Key $key,
     ) {}
+    
+    /**
+     * Returns the encrypter name.
+     *
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name;
+    }
     
     /**
      * Returns the encrypted data.
