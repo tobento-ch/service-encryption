@@ -27,18 +27,23 @@ class EncrypterFactory implements EncrypterFactoryInterface
     /**
      * Create a new Encrypter.
      *
-     * @param string $key
+     * @param string $name
+     * @param array $config
      * @return EncrypterInterface
      * @throws EncrypterException
      */
-    public function createEncrypter(string $key): EncrypterInterface
+    public function createEncrypter(string $name, array $config): EncrypterInterface
     {
+        if (!isset($config['key']) || !is_string($config['key'])) {
+            throw new EncrypterException('Missing or invalid config "key"');
+        }
+        
         try {
-            $key = Key::loadFromAsciiSafeString($key);
+            $key = Key::loadFromAsciiSafeString($config['key']);
         } catch (CryptoException $e) {
             throw new EncrypterException($e->getMessage(), $e->getCode(), $e);
         }
         
-        return new Encrypter($key);
+        return new Encrypter($name, $key);
     }
 }

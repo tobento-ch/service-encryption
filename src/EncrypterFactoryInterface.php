@@ -21,9 +21,10 @@ interface EncrypterFactoryInterface
     /**
      * Create a new Encrypter.
      *
-     * @param string $key
+     * @param string $name
+     * @param array $config
      * @return EncrypterInterface
      * @throws EncrypterException
      */
-    public function createEncrypter(string $key): EncrypterInterface;
+    public function createEncrypter(string $name, array $config): EncrypterInterface;
 }
