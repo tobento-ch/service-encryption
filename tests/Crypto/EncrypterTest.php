@@ -28,14 +28,14 @@ class EncrypterTest extends TestCase
     {
         $key = Key::createNewRandomKey();
         
-        $enrypter = new Encrypter(key: Key::createNewRandomKey());
+        $enrypter = new Encrypter(name: 'crypto', key: Key::createNewRandomKey());
         
         $this->assertInstanceof(EncrypterInterface::class, $enrypter);
     }
     
     public function testEncryptAndDecrypt()
     {
-        $encrypter = new Encrypter(key: Key::createNewRandomKey());
+        $encrypter = new Encrypter(name: 'crypto', key: Key::createNewRandomKey());
         
         $encrypted = $encrypter->encrypt('lorem ipsum');
         
@@ -47,7 +47,7 @@ class EncrypterTest extends TestCase
     {
         $this->expectException(DecryptException::class);
         
-        $encrypter = new Encrypter(key: Key::createNewRandomKey());
+        $encrypter = new Encrypter(name: 'crypto', key: Key::createNewRandomKey());
         
         $encrypted = $encrypter->encrypt('lorem ipsum');
         

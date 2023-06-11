@@ -39,7 +39,10 @@ class EncrypterFactoryTest extends TestCase
         
         $this->assertInstanceof(
             EncrypterInterface::class,
-            (new EncrypterFactory())->createEncrypter(key: $key)
+            (new EncrypterFactory())->createEncrypter(
+                name: 'crypto',
+                config: ['key' => $key],
+            )
         );
     }
     
@@ -47,6 +50,29 @@ class EncrypterFactoryTest extends TestCase
     {
         $this->expectException(EncrypterException::class);
         
-        (new EncrypterFactory())->createEncrypter(key: 'badKey');
+        (new EncrypterFactory())->createEncrypter(
+            name: 'crypto',
+            config: ['key' => 'badKey'],
+        );
+    }
+    
+    public function testCreateEncrypterMethodThrowsEncrypterExceptionIfKeyIsNotSet()
+    {
+        $this->expectException(EncrypterException::class);
+        
+        (new EncrypterFactory())->createEncrypter(
+            name: 'crypto',
+            config: [],
+        );
+    }
+    
+    public function testCreateEncrypterMethodThrowsEncrypterExceptionIfKeyIsString()
+    {
+        $this->expectException(EncrypterException::class);
+        
+        (new EncrypterFactory())->createEncrypter(
+            name: 'crypto',
+            config: ['key' => []],
+        );
     }
 }
