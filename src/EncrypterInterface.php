@@ -19,6 +19,13 @@ namespace Tobento\Service\Encryption;
 interface EncrypterInterface
 {
     /**
+     * Returns the encrypter name.
+     *
+     * @return string
+     */
+    public function name(): string;
+    
+    /**
      * Returns the encrypted data.
      *
      * @param mixed $data
